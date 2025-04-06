@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Darth Vader">
-<meta name="dcterms.date" content="2025-03-23">
 
-<title>Modelovanie ekonomických procesov</title>
+<title>4&nbsp; Stacionarita časového radu – Modelovanie ekonomických procesov</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro.html" rel="next">
+<link href="./summary.html" rel="next">
+<link href="./prednaska4.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,6 +103,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prednaska4.html">Stacionarita časového radu</a></li><li class="breadcrumb-item"><a href="./prednaska4Stacionarita.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Stacionarita časového radu</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -109,7 +171,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -181,7 +243,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prednaska4Stacionarita.html" class="sidebar-item-text sidebar-link">
+  <a href="./prednaska4Stacionarita.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Stacionarita časového radu</span></span></a>
   </div>
 </li>
@@ -209,35 +271,24 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#použivané-dáta" id="toc-použivané-dáta" class="nav-link active" data-scroll-target="#použivané-dáta"><span class="header-section-number">4.1</span> Použivané dáta</a></li>
+  <li><a href="#stacionarita-časového-radu" id="toc-stacionarita-časového-radu" class="nav-link" data-scroll-target="#stacionarita-časového-radu"><span class="header-section-number">4.2</span> Stacionarita časového radu</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prednaska4.html">Stacionarita časového radu</a></li><li class="breadcrumb-item"><a href="./prednaska4Stacionarita.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Stacionarita časového radu</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Modelovanie ekonomických procesov</h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Stacionarita časového radu</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Darth Vader </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">March 23, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -247,9 +298,172 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>Modelovanie Ekonomických procesov</p>
+<section id="použivané-dáta" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="použivané-dáta"><span class="header-section-number">4.1</span> Použivané dáta</h2>
+<p>Budeme používať rôzne typy údajov. V tomto cvičení vykreslíme časové rady údajov a je užitočné zamyslieť sa nad tým, ako sa tieto časové rady dajú porovnať. Zamerajte sa najmä na typ trendu, sezónnosť alebo periodicitu a homoskedasticitu.</p>
+<p>Najprv načítame knižnice datasets, astsa and xts pomocou príkazu libarary(). Pred prvým použitím súboru údajov by ste mali použiť funkciu help(), aby ste si pozreli podrobnosti o údajoch. Ak si chcete pozrieť podrobnosti radu, použite napríklad help(JohnsonJohnson) alebo ?JohnsonJohnson.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(astsa)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: zoo</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'zoo'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Náhlad na dáta Southern Oscillation Index</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Nájdete to v knižnici astsa</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(soi)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Náhlad na dáta chicken sú mesačné ceny poundu kuraťa</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Nájdete to v knižnici astsa</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(chicken)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Náhlad na dáta zárobkov na akciu Johnson &amp; Johnson </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Nájdete to v knižnici datasets</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(JohnsonJohnson)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Náhlad na dáta priemernej odchýlky  globálnej teploty medzi súšou a oceánom</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Nájdete to v knižnici astsa</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(gtemp_both)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="stacionarita-časového-radu" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="stacionarita-časového-radu"><span class="header-section-number">4.2</span> Stacionarita časového radu</h2>
+<p>Prejdime k základným pojmom stacionarity, jej významu a k tomu, ako prinútiť nestacionárne údaje k stacionarite.</p>
+<p>Na dosiahnutie úspornosti v modeli časových radov sa často predpokladá určitá forma invariantnosti rozdelenia v čase alebo stacionarity. Pre pozorovaný časový rad: Výkyvy sa javia ako náhodné. Ten istý typ náhodného správania však často platí aj medzi jednotlivými časovými obdobiami. Napríklad výnosy z akcií alebo zmeny úrokových sadzieb majú v každom z nich veľmi odlišné správanie v porovnaní s predchádzajúcim rokom. Ich priemer, štandardná odchýlka a ďalšie štatistické vlastnosti sú však často podobné v jednotlivých rokoch.</p>
+<p>Proces (časový rad Y) je slabo stacionárny, ak sa jeho stredná hodnota, rozptyl a kovariancia časovými posunmi nemenia. To znamená, že existuje spoločná konštantná stredná hodnota mu <span class="math inline">\(\mu\)</span> a rozptyl sigma-kvadrát <span class="math inline">\(\sigma^2\)</span> pre všetky časy t.</p>
+<p>Kovariancia medzi dátami Y v čase t a v čase s závisí len od toho, ako blízko sú časy t a s, nie od samotných časových indexov t a s. Napríklad, ak je Y stacionárny proces, potom kovariancia medzi dátami Y v časoch 2 a 5 je rovnaká ako kovariancia medzi časmi 7 a 10, pretože oba sú od seba vzdialené tri časové jednotky.</p>
+<p>Prečo sa zamerať na stacionárne modely? Stacionárny proces možno modelovať s oveľa menším počtom parametrov. Pre každý <span class="math inline">\(Y_t\)</span> nepotrebujete inú strednú hodnotu, ale všetky majú spoločnú strednú hodnotu <span class="math inline">\(\mu\)</span>, ktorú môžete presne odhadnúť pomocou <span class="math inline">\(\bar{y}\)</span>, výberového priemeru.</p>
+<p>Keď sa pozoruje časový rad, prirodzená otázka znie: Je stacionárny? Konkrétne, je pre tento časový rad údajov vhodný model stacionárneho procesu? Mnohé finančné časové rady nevykazujú stacionaritu. Avšak: Zmeny v rade sú často približne stacionárne. Možno po použití logaritmickej transformácie. Stacionárny rad by mal vykazovať náhodné oscilácie okolo určitej pevnej úrovne, čo je jav nazývaný mean-reversion (návrat k strednej hodnote).</p>
+<p>V kontexte časových radov sa stacionárnosť vzťahuje na stabilitu strednej hodnoty - to znamená, že neexistuje stabilita trendu korelácie - to znamená, že korelačná štruktúra údajov zostáva v čase konštantná. Časové rady, ktoré sú tu vykreslené, môžu pomôcť lepšie pochopiť stacionaritu. <img src="stacionarita.png" class="img-fluid" alt="Obrázok 2. Ktorý graf je stacionárny?."> Ľavý graf je stacionárny, neexistuje v ňom žiadny trend a časový rad sa správa rovnako napríklad medzi časovými bodmi 1 až 50, 50 až 100 atď. Na druhej strane graf vpravo vyzerá veľmi odlišne medzi časovými bodmi 1 až 50 a 150 až 200. Stredné hodnoty v týchto časových intervaloch sú odlišné, rovnako ako variabilita koniec radu je variabilnejší ako začiatok.</p>
+<p>Stacionarita znamená, že na odhad korelácie môžeme použiť jednoduché priemerovanie: Ak je stredná hodnota konštantná, potom ju môžeme odhadnúť pomocou priemeru vzorky, <span class="math inline">\(\bar{x}\)</span>, a ak je korelačná štruktúra konštantná, potom napríklad na odhad korelácie s oneskorením 1 môžeme použiť všetky dvojice údajov, ktoré sú od seba vzdialené 1 časovú jednotku, <span class="math inline">\((x_1, x_2), (x_2, x_3)\)</span> atď. Funguje to, pretože vzťah medzi susediacimi hodnotami radov zostáva v čase rovnaký. Podobne môžeme na odhad korelácie s oneskorením 2 použiť <span class="math inline">\((x_1, x_3), (x_2, x_4)\)</span> atď.</p>
+<p>Southern Oscillation Index (SOI, https://www.ncei.noaa.gov/access/monitoring/enso/soi) je pomerne stabilný. vyzerá rovnako v každom malom časovom úseku (aj keď môže existovať určitý mierny trend).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(soi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska4Stacionarita_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lag</span>(soi,<span class="sc">-</span><span class="dv">1</span>),soi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska4Stacionarita_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">lag</span>(soi,<span class="sc">-</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 453</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="fu">lag</span>(soi,<span class="sc">-</span><span class="dv">1</span>)[<span class="sc">-</span><span class="dv">1</span>],soi[<span class="sc">-</span><span class="fu">length</span>(soi)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6045049</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lag</span>(soi,<span class="sc">-</span><span class="dv">6</span>),soi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska4Stacionarita_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dimSoi <span class="ot">&lt;-</span> <span class="fu">length</span>(soi)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>lag6Soi <span class="ot">&lt;-</span> <span class="fu">length</span>(soi) <span class="sc">-</span><span class="dv">5</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="fu">lag</span>(soi,<span class="sc">-</span><span class="dv">6</span>)[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)],soi[<span class="sc">-</span><span class="fu">c</span>(lag6Soi<span class="sc">:</span><span class="fu">length</span>(soi))])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.1883695</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(soi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska4Stacionarita_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Rozptylové grafy ukazujú koreláciu z hľadiska oneskorenia. Nazýva sa to autokorelácia a je to rovnaké ako korelácia, o ktorej ste sa učili v regresii. Graf ukazuje, že SOI, ktorý je náhradou teploty povrchu mora, je pozitívne korelovaný sám so sebou s odstupom jedného mesiaca, ale negatívne korelovaný sám so sebou s odstupom šiestich mesiacov (keďže v lete je horúco a v zime chladno).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(gtemp_both)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gtemp_both)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska4Stacionarita_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Globálne priemerné teplotné odchýlky medzi súšou a oceánom sú príkladom náhodnej prechádzky, kde hodnota radu v čase t je hodnota, ktorú mal v čase t-1, plus úplne náhodný pohyb.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">diff</span>(gtemp_both))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska4Stacionarita_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Diferencovaním (“dnes mínus včera”) sa tento druh procesu môže stať stacionárnym.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(chicken)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska4Stacionarita_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">diff</span>(chicken))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska4Stacionarita_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Cena kurčaťa je skôr “trendová stacionarita”, čo je stacionárne správanie okolo jednoduchého trendu. Diferencovanie funguje aj tu.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(JohnsonJohnson)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska4Stacionarita_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log</span>(JohnsonJohnson))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska4Stacionarita_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">diff</span>(<span class="fu">log</span>(JohnsonJohnson)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska4Stacionarita_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ak existuje trend a heteroskedasticita, môže pomôcť logaritnmická transformácia a diferencovanie, ako v prípade súboru údajov o štvročných zárobkoch na akciu Johnson a Johnson za obdobie od 1960 až 1980. Po prvé, logaritnmická transformácia údajov s kladnou hodnotou môže stabilizovať rozptyl. Po druhé, diferencovanie údajov dokáže odstrániť lineárny trend.</p>
 
 
 </section>
@@ -677,10 +891,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./prednaska4.html" class="pagination-link" aria-label="Stacionarita časového radu">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Stacionarita časového radu</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro.html" class="pagination-link" aria-label="Úvod">
-        <span class="nav-page-text">Úvod</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./summary.html" class="pagination-link" aria-label="Záver">
+        <span class="nav-page-text">Záver</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
