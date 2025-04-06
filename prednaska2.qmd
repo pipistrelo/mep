@@ -1,0 +1,10 @@
+# Dáta o požičiavaní bicyklov
+
+
+Použijeme  dáta o požičiavaní bicyklov.
+            Dátový súbor je dostupný na 
+            <a> href="https://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset"> adrese </a>
+            kde sú vysvetlené aj premenné.
+            Budeme používať dáta o dennom požičiavaní bicyklov.
+            Závislá premenná bude "cnt", ktorá v sebe zahrňa celkový počet bicyklov požičaných za deň pre obe skupiny
+            ľudí aj registrovaných aj príležitostných.

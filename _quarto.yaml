@@ -1,0 +1,29 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Modelovanie ekonomických procesov"
+  author: "Urban Kováč"
+  cover-image: images/cover.png
+  site-url: https
+  repo-branch: main
+  repo-actions: [edit]
+  chapters:
+    - index.qmd
+    - preface.qmd
+    - part: prednaska1.qmd
+      chapters:
+        - prednaska1_UvodCasoveRady.qmd
+    - part: prednaska2.qmd
+      chapters:
+        - prednaska2_HoltWinters.qmd
+
+  appendices:
+    - apendix.qmd
+
+format:
+  html:
+    theme: cosmo
+    cover-image: cover.png
+    code-link: true

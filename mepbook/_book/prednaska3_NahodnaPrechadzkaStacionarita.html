@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Model bieleho šumu (white noise (WN)) – Modelovanie ekonomických procesov</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./summary.html" rel="next">
+<link href="./prednaska3.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prednaska3.html">Model Bieleho Šumu (white noise) a Náhodná Prechádzka (Random walk)</a></li><li class="breadcrumb-item"><a href="./prednaska3_NahodnaPrechadzkaStacionarita.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Model bieleho šumu (white noise (WN))</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Modelovanie ekonomických procesov</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Úvod</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./prednaska1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Úvod do časových radov</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prednaska1_UvodCasoveRady.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Úvod do časových radov</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./prednaska2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Holt Winters exponenciálne vyrovnávanie dát</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prednaska2_HoltWinters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Holt Winters exponencálne vyrovnávanie</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./prednaska3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model Bieleho Šumu (white noise) a Náhodná Prechádzka (Random walk)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prednaska3_NahodnaPrechadzkaStacionarita.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Model bieleho šumu (white noise (WN))</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Záver</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#simulácia-modelu-bieleho-šumu" id="toc-simulácia-modelu-bieleho-šumu" class="nav-link active" data-scroll-target="#simulácia-modelu-bieleho-šumu"><span class="header-section-number">3.1</span> Simulácia modelu bieleho šumu</a></li>
+  <li><a href="#odhad-modelu-bieleho-šumu" id="toc-odhad-modelu-bieleho-šumu" class="nav-link" data-scroll-target="#odhad-modelu-bieleho-šumu"><span class="header-section-number">3.2</span> Odhad modelu bieleho šumu</a></li>
+  <li><a href="#náhodná-prechádzka-random-walk" id="toc-náhodná-prechádzka-random-walk" class="nav-link" data-scroll-target="#náhodná-prechádzka-random-walk"><span class="header-section-number">4</span> Náhodná prechádzka (Random walk)</a>
+  <ul class="collapse">
+  <li><a href="#simulácia-modelu-náhodnej-prechádzky" id="toc-simulácia-modelu-náhodnej-prechádzky" class="nav-link" data-scroll-target="#simulácia-modelu-náhodnej-prechádzky"><span class="header-section-number">4.1</span> Simulácia modelu náhodnej prechádzky</a></li>
+  <li><a href="#simulácia-modelu-náhodnej-prechádzky-s-konštatným-členom-driftom" id="toc-simulácia-modelu-náhodnej-prechádzky-s-konštatným-členom-driftom" class="nav-link" data-scroll-target="#simulácia-modelu-náhodnej-prechádzky-s-konštatným-členom-driftom"><span class="header-section-number">4.2</span> Simulácia modelu náhodnej prechádzky s konštatným členom (driftom)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prednaska3.html">Model Bieleho Šumu (white noise) a Náhodná Prechádzka (Random walk)</a></li><li class="breadcrumb-item"><a href="./prednaska3_NahodnaPrechadzkaStacionarita.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Model bieleho šumu (white noise (WN))</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Model bieleho šumu (white noise (WN))</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Model bieleho šumu (WN) je základným modelom časového radu. Je tiež základom pre zložitejšie modely, ktoré budeme posudzovať. Zameriame sa na najjednoduchšiu formu bieleho šumu, nezávislé a identicky rozdelené údaje. Model bieleho šumu je najjednoduchším príkladom stacionárneho procesu, ktorý má:</p>
+<ul>
+<li>fixnú, konštantnú strednú hodnotu,</li>
+<li>fixný, konštantný rozptyl a</li>
+<li>žiadnu koreláciu v čase.</li>
+</ul>
+<p>Pozrime sa na niekoľko grafov časových radov bieleho šumu.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="wn1.png" class="img-fluid figure-img"></p>
+<figcaption>Obrázok 1. 4 grafy Bieleho šumu.</figcaption>
+</figure>
+</div>
+<p>Na grafe A si všimnite, že v údajoch nie je žiadny vzor ani korelácia v čase. Na grafe B sa rad posunul nahor, čo naznačuje väčší priemer, ale v údajoch stále nie sú žiadne vzory. Na grafe C má rad väčšiu vertikálnu variabilitu, čo znamená väčší rozptyl, ale v údajoch stále nie sú žiadne vzory. A napokon v prípade garfu D má rad väčší priemer aj väčší rozptyl, ale opäť nemá jasný vzor alebo trend v čase. Všetky štyri obrázky sú príkladmi časových radov bieleho šumu.</p>
+<p>Teraz sa pozrieme na štyri nové grafy. Otázka je : Ktorý z nich je biely šum?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="wn2.png" class="img-fluid figure-img"></p>
+<figcaption>Obrázok 2. Ktorý graf je Biely šum?.</figcaption>
+</figure>
+</div>
+<p>Graf A má stúpajúci časový trend, jeho priemer nie je v čase konštantný, takže to nie je biely šum. Graf B má jasný periodický vzor s pevnou dĺžkou cyklu, ktorý sa opakuje približne každých 12 pozorovaní. Jeho stredná hodnota tiež nie je v čase konštantná, takže nejde o biely šum. Graf C vykazuje väčšiu variabilitu vpravo ako vľavo, to znamená, že sa zdá, že rozptyl v čase rastie. Keďže rozptyl nie je konštantný, tiež nejde o biely šum. Zostáva graf D, ktorý má podľa všetkého konštantnú strednú hodnotu aj rozptyl a žiadne jasné vzory alebo koreláciu v čase, takže spĺňa predpoklady modelu bieleho šumu.</p>
+<section id="simulácia-modelu-bieleho-šumu" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="simulácia-modelu-bieleho-šumu"><span class="header-section-number">3.1</span> Simulácia modelu bieleho šumu</h2>
+<p>Na simuláciu časového radu bieleho šumu možno použiť funkciu arima.sim(). ARIMA je skratka pre triedu modelov autoregresných integrovaných kĺzavých priemerov, ktoré budeme v tomto predmete uvažovať (budeme sa venovať v ARIMA modelom neskorších cvičeniach). V stručnosti si len uvedieme, čo znamenajú parametre modelu ARIMA, ktoré použijeme nižšie uvedenej funkcie. Model ARIMA(p, d, q) má tri časti, a to autoregresný rád p, rád integrácie (alebo diferencovania) d a rád kĺzavého priemeru q. Každú z týchto častí čoskoro podrobne popíšeme v neskorších cvičeniach, ale teraz si všimnime, že model ARIMA(0, 0, 0), t. j. so všetkými týmito zložkami nulovými, je jednoducho model bieleho šumu.</p>
+<p>Je to veľmi široká trieda modelov časových radov, ktorá zahŕňa biely šum ako špeciálny prípad. Na špecifikáciu modelu bieleho šumu použijeme špeciálny rád špecifický pre biely šum, ako je znázornené v kóde (list(order = c(0, 0, 0)). Simuluje sa rad s n rovné päťdesiatim pozorovaniam. Niektoré simulované hodnoty bieleho šumu sú zobrazené pomocou funkcie head.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulácia n = 50 pozorovaní modelu bieleho šumu</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>bielySum1 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)), <span class="at">n =</span> <span class="dv">50</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bielySum1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774  1.71506499</code></pre>
+</div>
+</div>
+<p>Celý rad simulovaného bieleho šumu je znázornený na obrázku. Predvolený priemer a štandardná odchýlka pre rad sú nula, resp. jedna.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts.plot</span>(bielySum1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska3_NahodnaPrechadzkaStacionarita_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Simuláciu môžete zopakovať so strednou hodnotou rovnou štyrom a štandardnou odchýlkou rovnou 2 tak, že ich pridáte ako ďalšie argumenty, ako je znázornené v kóde. Na obrázku vidíme, že simulované hodnoty oscilujú okolo hodnoty 4 (priemer) na vertikálnej osi.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>bielySum2 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)), <span class="at">n =</span> <span class="dv">50</span>, <span class="at">mean=</span><span class="dv">4</span>,<span class="at">sd=</span><span class="dv">2</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bielySum2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.506637 3.942906 3.914259 6.737205 3.548458 7.032941</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts.plot</span>(bielySum2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska3_NahodnaPrechadzkaStacionarita_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="odhad-modelu-bieleho-šumu" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="odhad-modelu-bieleho-šumu"><span class="header-section-number">3.2</span> Odhad modelu bieleho šumu</h2>
+<p>Nakoniec môžeme pre daný časový rad odhadnúť model bieleho šumu. Na to použijeme funkciu arima(), pričom najprv poskytneme údaje (premenná bielySum1), potom nastavíme rády modelu, ako je znázornené v kóde (list(order = c(0, 0, 0)).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arima</span>(bielySum1, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+arima(x = bielySum1, order = c(0, 0, 0))
+
+Coefficients:
+      intercept
+         0.0344
+s.e.     0.1296
+
+sigma^2 estimated as 0.8401:  log likelihood = -66.59,  aic = 137.18</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bielySum1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03440355</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(bielySum1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8572352</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(bielySum1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.92587</code></pre>
+</div>
+</div>
+<p>Táto funkcia vráti odhad strednej hodnoty alebo interceptu, ktorý je pre tento časový rad približne 0.0344, približnú štandardnú chybu tohto odhadu strednej hodnoty, v tomto prípade 0.1296, a odhad rozptylu alebo sigma kvadrát, ktorý bol 0.8401. Odhadovaná štandardná odchýlka je samozrejme odmocninou z tohto odhadu rozptylu. Alternatívne môžete použiť funkcie mean() a var() na priamy odhad parametrov strednej hodnoty 0.0344 a rozptylu modelu bieleho šumu 0.8572. Podobne môžeme spraviť aj pre druhý rad bieleho šumu reprezentovaný premenou bielySum2:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arima</span>(bielySum2, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+arima(x = bielySum2, order = c(0, 0, 0))
+
+Coefficients:
+      intercept
+         4.2928
+s.e.     0.2535
+
+sigma^2 estimated as 3.214:  log likelihood = -100.13,  aic = 204.27</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bielySum2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.292817</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(bielySum2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.279339</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(bielySum2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.810894</code></pre>
+</div>
+</div>
+</section>
+<section id="náhodná-prechádzka-random-walk" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Náhodná prechádzka (Random walk)</h1>
+<p>Náhodná prechádzka alebo RW je jednoduchý príklad nestabilného alebo nestacionárneho procesu a má tieto vlastnosti:</p>
+<ul>
+<li>Nemá určenú strednú hodnotu ani rozptyl.</li>
+<li>Vykazuje veľmi silnú závislosť v čase, pričom každé pozorovanie úzko súvisí s jeho bezprostrednými susedmi.</li>
+<li>Jeho zmeny alebo prírastky sa však riadia procesom bieleho šumu, ktorý je stabilný a stacionárny.</li>
+</ul>
+<p>Pozrime sa na niektoré grafy časových radov náhodnej prechádzky.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="rw.png" class="img-fluid figure-img"></p>
+<figcaption>Obrázok 3. Ktorý graf je Biely šum?.</figcaption>
+</figure>
+</div>
+<p>Na grafe A si všimnite, že v rade je silná stálosť. Susedné pozorovania sú podobné a náhodne sa objavujú krátke trendy smerom nahor a nadol. Niekoľkokrát pretína prerušovanú vodorovnú nulovú čiaru. Graf B vykazuje mnohé z tých istých znakov. Graf C začína blízko nuly, ale potom sa pohybuje smerom nadol, zatiaľ čo graf D začína blízko nuly, ale potom sa pohybuje smerom nahor. Každý z nich je časovým radom náhodnej prechádzky.</p>
+<p>Teraz sa pozrime na model náhodnej prechádzky. Je definovaný rekurzívne.</p>
+<p><span class="math inline">\(Dnes = Včera + Šum\)</span></p>
+<p>Dnešné alebo aktuálne pozorovanie sa rovná včerajšiemu alebo predchádzajúcemu pozorovaniu plus šum alebo chyba. Viac formálny zápis:</p>
+<p><span class="math inline">\(Y_t = Y_{t-1} + \epsilon_t\)</span></p>
+<p>Táto chyba <span class="math inline">\(\epsilon_t\)</span> je konkrétne biely šum so strednou hodnotou (priemerom) 0. V praxi si simulácia časového radu náhodnej prechádzky vyžaduje:</p>
+<ul>
+<li>Počiatočný bod <span class="math inline">\(Y_0\)</span>.</li>
+<li>Model náhodnej prechádzky má len jeden parameter, ktorým je rozptyl bieleho šumu <span class="math inline">\(\sigma^2_{\epsilon}\)</span>.</li>
+</ul>
+<p>Vzhľadom na bod <span class="math inline">\(Y_0\)</span> a prvý člen bieleho šumu vygenerujete prvé pozorovanie Náhodnej prechádzky ako <span class="math inline">\(Y_1 = Y_0 + \epsilon_1\)</span> a potom pokračujete k časovému indexu dva, kde <span class="math inline">\(Y_2 = Y_1 + \epsilon_2\)</span> . Často sa pre jednoduchosť ako počiatočný bod <span class="math inline">\(Y_0\)</span> používa hodnota nula. Musíte si dopredu nagenerovať aj hodnoty bieleho šumu, čo sme už urobili vyššie.</p>
+<p>Výrazy v náhodnej prechádzke sa dajú usporiadať ako rad prvej diferencie. Tu vidíte, že rozdiel medzi aktuálnym pozorovaním <span class="math inline">\(Y_t\)</span> a predchádzajúcim pozorovaním <span class="math inline">\(Y_{t-1}\)</span></p>
+<p><span class="math inline">\(Y_t - Y_{t-1} =  \epsilon_t\)</span></p>
+<p>sa rovná členovi šumu <span class="math inline">\(\epsilon_t\)</span>. To znamená, že rozdielový rad alebo rad zmien je biely šum.</p>
+<section id="simulácia-modelu-náhodnej-prechádzky" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="simulácia-modelu-náhodnej-prechádzky"><span class="header-section-number">4.1</span> Simulácia modelu náhodnej prechádzky</h2>
+<p>Najprv si zadefinujeme rad náhodnej prechádzky a premennej dáme názov randomWalk. Budeme mať časovú radu o dĺžke 50, pretože biely šum 1 mal toľko hodnôt. Rad inicializujeme nulovými hodnotami. Vypočítame prvý člen radu náhodnej prechádzky keďže sme už definovali <span class="math inline">\(Y_0\)</span> ako prvú hodnotu v rade, ktorá bola inicializovaná hodnotou nula. Potom využijeme iteračný cyklus “for” a dorátame jednotlivé časové kroky od 2 až po 50 rekurzívne.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>randomWalk <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="fu">length</span>(bielySum1))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#vypočítame prvý člen radu náhodnej prechádzky  </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>randomWalk[<span class="dv">1</span>] <span class="ot">&lt;-</span> randomWalk[<span class="dv">1</span>] <span class="sc">+</span> bielySum1[<span class="dv">1</span>]</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(bielySum1)) {</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    randomWalk[i] <span class="ot">&lt;-</span> randomWalk[i<span class="dv">-1</span>] <span class="sc">+</span> bielySum1[i]</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(randomWalk,<span class="at">type=</span><span class="st">"b"</span>, <span class="at">xlab=</span><span class="st">"čas"</span>,<span class="at">ylab=</span><span class="st">"hodnoty náhodnej prechádzky"</span>, <span class="at">main=</span><span class="st">"Náhodná prechádzka s použitím bieleho šumu 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska3_NahodnaPrechadzkaStacionarita_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Na obrázku genereovaného R kódom vidíme simulovanú nahodnú prechádzku.</p>
+<p>Ak začnete s časovým radom náhodná prechádzka (randomWalk), a použijete funkciu diff() v R na výpočet rozdielového radu, výsledok tejto jednoduchej transformácie uvidíte, že rozdiely alebo zmeny či prírastky časového radu randomWalk sú radom bieleho šumu 1. Teraz sa pozrieme na priebeh prvých diferencií.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>prveDiffRW <span class="ot">&lt;-</span> <span class="fu">diff</span>(randomWalk)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prveDiffRW,<span class="at">type=</span><span class="st">"b"</span>,<span class="at">xlab=</span><span class="st">"čas"</span>,<span class="at">ylab=</span><span class="st">"hodnoty prvých differencií náhodnej prechádzky"</span>,<span class="at">main=</span><span class="st">"Prvé differencie náhodnej prechádzky s použitím bieleho šumu 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska3_NahodnaPrechadzkaStacionarita_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(prveDiffRW)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04654394</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(prveDiffRW)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8675713</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(prveDiffRW))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9314351</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bielySum1[<span class="dv">2</span><span class="sc">:</span><span class="dv">50</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04654394</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(bielySum1[<span class="dv">2</span><span class="sc">:</span><span class="dv">50</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8675713</code></pre>
+</div>
+</div>
+<p>Vidíme z výsledku, že rad prvých diferencíí náhodnej prechádzky má priemer blízky nule a rozptzl blízky k 1.Graf naynačuje, že sa pôvodný rad bieleho šumu 1 a prv0 differencie náhodnej prechádzky rovanjú. Chýba nám prvý údaj lebo pri differenciácii vypadne prvý údaj.Teda overíme to tak, že vypočitame priemer a štandardnú odhchýlku pre pozorovania 2 až 50 bieleho šumu 1 a dostávame tie isté hodnoty ako pre rad prvých diferencií.</p>
+</section>
+<section id="simulácia-modelu-náhodnej-prechádzky-s-konštatným-členom-driftom" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="simulácia-modelu-náhodnej-prechádzky-s-konštatným-členom-driftom"><span class="header-section-number">4.2</span> Simulácia modelu náhodnej prechádzky s konštatným členom (driftom)</h2>
+<p>Model náhodnej prechádzky možno rozšíriť o koeficient driftu (posun, pomalá zmena). Tým sa do rekurzívneho vzorca pridá konštanta C.</p>
+<p><span class="math inline">\(Y_t = C + Y_{t-1} + \epsilon_t\)</span></p>
+<p>Náhodná prechádzka s driftom má dva parametre, driftovú konštantu C a sigma-kvadrát rozptylu bieleho šumu <span class="math inline">\(\sigma^2_{\epsilon}\)</span>. Aký je prvý diferenčný rad náhodnej prechádzky s driftom? Je to jednoducho konštanta plus šum, čo je proces bieleho šumu so strednou hodnotou C.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>randomWalkDrift <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="fu">length</span>(bielySum1))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">#vypočítame prvý člen radu náhodnej prechádzky </span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>randomWalkDrift[<span class="dv">1</span>] <span class="ot">&lt;-</span> randomWalkDrift[<span class="dv">1</span>] <span class="sc">+</span> bielySum1[<span class="dv">1</span>]</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(bielySum1)) {</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    randomWalkDrift[i] <span class="ot">&lt;-</span> c <span class="sc">+</span> randomWalkDrift[i<span class="dv">-1</span>] <span class="sc">+</span> bielySum1[i]</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(randomWalkDrift,<span class="at">type=</span><span class="st">"b"</span>, <span class="at">xlab=</span><span class="st">"čas"</span>,<span class="at">ylab=</span><span class="st">"hodnoty náhodnej prechádzky"</span>, <span class="at">main=</span><span class="st">"Náhodná prechádzka s použitím bieleho šumu 1 a driftom c=0.3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska3_NahodnaPrechadzkaStacionarita_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Vidíme, že konštanta c vlastne vytvára lineárny trend pre náhodnú prechádzku s driftom. Kedže hodnoty bieleho šumu sú malé a pohybujú sa od =2 do 2, časom je tam vidieť nejaký výkyv okolo rastúceho lineárneho trendu, ale čím bude c väčšie tým budú výkyvy okolo trendu vidieť menej lebo hodnota trednu pre daný časový bod je väčšia ako samotný biely šum. Drift teda unáša hodnoty s lineaárnym trendom rastúcim smerom ak c je kladné, klesajúcim ak c je záporné. Teraz urobme prvé differencie náhodnej prechádzky s driftom.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>prveDiffRWDrift <span class="ot">&lt;-</span> <span class="fu">diff</span>(randomWalkDrift)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prveDiffRWDrift,<span class="at">type=</span><span class="st">"b"</span>,<span class="at">xlab=</span><span class="st">"čas"</span>,<span class="at">ylab=</span><span class="st">"hodnoty prvých differencií náhodnej prechádzky s driftom c=0.3"</span>,<span class="at">main=</span><span class="st">"Prvé differencie náhodnej prechádzky s použitím bieleho šumu 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska3_NahodnaPrechadzkaStacionarita_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(prveDiffRWDrift)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3465439</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(prveDiffRWDrift)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8675713</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(prveDiffRWDrift))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9314351</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bielySum1[<span class="dv">2</span><span class="sc">:</span><span class="dv">50</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04654394</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(bielySum1[<span class="dv">2</span><span class="sc">:</span><span class="dv">50</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8675713</code></pre>
+</div>
+</div>
+<p>Takže vidíme, že prvé diferencie radu náhodnej prechádzky s driftom c=0.3 je tiež proces bieleho šumu len priemerná hodnota nieje 0, a je posunutá o konštantu c.&nbsp;Teraz skúsme vygenerovať biely šum so strednou hodnotou 0.3 a štandardnou odchýlkou 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>bielySumDrift <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)), <span class="at">n =</span> <span class="dv">50</span>, <span class="at">mean=</span><span class="fl">0.3</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bielySumDrift)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.41040656  0.55688371  0.05330812 -0.04754260 -0.65161857  0.25497228</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts.plot</span>(bielySumDrift)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska3_NahodnaPrechadzkaStacionarita_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bielySumDrift)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04609957</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(bielySumDrift)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9787816</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(bielySumDrift))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9893339</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arima</span>(bielySumDrift, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+arima(x = bielySumDrift, order = c(0, 0, 0))
+
+Coefficients:
+      intercept
+         0.0461
+s.e.     0.1385
+
+sigma^2 estimated as 0.9592:  log likelihood = -69.91,  aic = 143.81</code></pre>
+</div>
+</div>
+<p>Vidíme, že grafy prvých differencií a bieleho šumu s driftom s priemerom 0.3 a štandardnou odhýlkou 1 sa podobajú.Odhad priemeru bieleho šumu s driftom presne nevyšiel na 0.3, ale je tam určitá chyba a teda v rámci chybz sa nachádza aj hodnota 0.3. Nemohli sme drift zvoliť väčší lebo by sme nevideli tie výkyvy okolo rastúceho trendu. Zvoľme si drift napríklad 1 a uvidíme, že prvé differencie budú radou bieleho šumu s priemerom 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>randomWalkDriftVelky <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="fu">length</span>(bielySum1))</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co">#vypočítame prvý člen radu náhodnej prechádzky </span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>randomWalkDriftVelky[<span class="dv">1</span>] <span class="ot">&lt;-</span> randomWalkDriftVelky[<span class="dv">1</span>] <span class="sc">+</span> bielySum1[<span class="dv">1</span>]</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(bielySum1)) {</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    randomWalkDriftVelky[i] <span class="ot">&lt;-</span> c <span class="sc">+</span> randomWalkDriftVelky[i<span class="dv">-1</span>] <span class="sc">+</span> bielySum1[i]</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(randomWalkDriftVelky,<span class="at">type=</span><span class="st">"b"</span>, <span class="at">xlab=</span><span class="st">"čas"</span>,<span class="at">ylab=</span><span class="st">"hodnoty náhodnej prechádzky"</span>, <span class="at">main=</span><span class="st">"Náhodná prechádzka s použitím bieleho šumu 1 a driftom c=1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska3_NahodnaPrechadzkaStacionarita_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>prveDiffRWDriftVelky <span class="ot">&lt;-</span> <span class="fu">diff</span>(randomWalkDriftVelky)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prveDiffRWDriftVelky,<span class="at">type=</span><span class="st">"b"</span>,<span class="at">xlab=</span><span class="st">"čas"</span>,<span class="at">ylab=</span><span class="st">"hodnoty prvých differencií náhodnej prechádzky s driftom c=1"</span>,<span class="at">main=</span><span class="st">"Prvé differencie náhodnej prechádzky s použitím bieleho šumu 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska3_NahodnaPrechadzkaStacionarita_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(prveDiffRWDriftVelky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.046544</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(prveDiffRWDriftVelky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8675713</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(prveDiffRWDriftVelky))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9314351</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bielySum1[<span class="dv">2</span><span class="sc">:</span><span class="dv">50</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04654394</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(bielySum1[<span class="dv">2</span><span class="sc">:</span><span class="dv">50</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8675713</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>bielySumDriftVelky <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)), <span class="at">n =</span> <span class="dv">50</span>, <span class="at">mean=</span><span class="dv">1</span>)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bielySumDriftVelky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1.787738847  1.769042241  1.332202579 -0.008376608  0.880547393
+[6]  0.719604665</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts.plot</span>(bielySumDriftVelky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prednaska3_NahodnaPrechadzkaStacionarita_files/figure-html/unnamed-chunk-11-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bielySumDriftVelky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.038807</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(bielySumDriftVelky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8667145</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(bielySumDriftVelky))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.930975</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arima</span>(bielySumDriftVelky, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+arima(x = bielySumDriftVelky, order = c(0, 0, 0))
+
+Coefficients:
+      intercept
+         1.0388
+s.e.     0.1303
+
+sigma^2 estimated as 0.8494:  log likelihood = -66.87,  aic = 137.73</code></pre>
+</div>
+</div>
+<p>Tu už vidieť, že rozdiel prvých diferencií je biely šum s priemerom 1.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./prednaska3.html" class="pagination-link" aria-label="Model Bieleho Šumu (white noise) a Náhodná Prechádzka (Random walk)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Model Bieleho Šumu (white noise) a Náhodná Prechádzka (Random walk)</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./summary.html" class="pagination-link" aria-label="Záver">
+        <span class="nav-page-text">Záver</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

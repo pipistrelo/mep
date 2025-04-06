@@ -1,0 +1,35 @@
+project:
+  type: book
+
+book:
+  title: "Modelovanie ekonomických procesov"
+  author: "Darth Vader"
+  date: "3/23/2025"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - part: prednaska1.qmd
+      chapters:
+        - prednaska1_UvodCasoveRady.qmd
+    - part: prednaska2.qmd
+      chapters:
+        - prednaska2_HoltWinters.qmd
+    - part: prednaska3.qmd
+      chapters:
+        - prednaska3_NahodnaPrechadzkaStacionarita.qmd
+    - part: prednaska4.qmd
+      chapters:
+        - prednaska4Stacionarita.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
