@@ -20,6 +20,9 @@ book:
     - part: prednaska4.qmd
       chapters:
         - prednaska4Stacionarita.qmd
+    - part: prednaska5.qmd
+      chapters:
+        - prednaska5TestovanieStacionarity.qmd
     - summary.qmd
     - references.qmd
 
